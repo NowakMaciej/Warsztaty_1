@@ -1,46 +1,47 @@
-package Zadanie_2;
+package zadanie_2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main2 {
 	public static void main(String[] args) {
-		// Podanie liczb i zapisanie ich w tablicy
-		/*
-		 * Wciąż nie ma warunku na duplikat. Link zawiera przydatne info
-		 * https://stackoverflow.com/questions/3951547/java-array-finding-duplicates
-		 */
+		// Podanie liczb przez użytkownika i zapisanie ich w tablicy
 		Scanner sc = new Scanner(System.in);
 		int numbersToDraw = 6;
-		int[] results = new int[numbersToDraw];
-		int nextNumber = -1;
-		for (int i = 0; i < results.length; i++) {
+		ArrayList<Integer> results = new ArrayList<>(numbersToDraw);
+		int nextNumber = 0;
+		for (int i = 0; i < numbersToDraw; i++) {
 			boolean flag = true;
 			while (flag) {
-				try {
 				System.out.println("Podaj " + (i + 1) + ". liczbę całkowitą z zakresu 1-49: ");
-				nextNumber = sc.nextInt();
-				while (nextNumber <= 0 || nextNumber > 49) {
-					System.out.println("Zły input. Podaj liczbę całkowitą z zakresu 1-49");
+				if (sc.hasNextInt()) {
 					nextNumber = sc.nextInt();
-				}
-				results[i] = nextNumber;
-				break;
-				} catch (InputMismatchException ex) {
-					System.out.print("Zły input. ");
+					if (results.contains(nextNumber)) {
+						System.out.println("Podana liczba już istnieje");
+						flag = true;
+					} 
+					if (nextNumber < 1 || nextNumber > 49) {
+						System.out.println("Zły input. Podaj liczbę całkowitą z zakresu 1-49");
+						flag = true;
+					} else {
+						flag = false;
+					}
+				} else {
+					System.out.println("Zły input. To nie jest liczba");
 					sc.next();
 					flag = true;
-				}
+				}	
 			}
+			results.add(nextNumber);
 		}
 		sc.close();
-		Arrays.sort(results);
+		Collections.sort(results);
 		System.out.println("Twoje liczby:");
-		System.out.println(Arrays.toString(results));
+		System.out.println(results);
 
-		// Losowanie liczb
+		// Losowanie liczb przez maszynę losującą
 		Integer[] arr = new Integer[49];
 		for (int i = 0; i < arr.length; i++) {
 			arr[i] = i + 1;
@@ -54,10 +55,10 @@ public class Main2 {
 		System.out.println("Wylosowane liczby");
 		System.out.println(Arrays.toString(tab));
 
-		// Wyświetlenie wyniku
+		// Porównanie wartości podanych przez użytkownika z wartościami wylosowanymi przez maszynę losującą i wyświetlenie wyniku
 		int counter = 0;
-		for (int i = 0; i < results.length; i++) {
-			if (tab[i] == results[i]) {
+		for (int i = 0; i < numbersToDraw; i++) {
+			if (tab[i] == results.get(i)) {
 				counter++;
 			}
 		}
@@ -74,7 +75,4 @@ public class Main2 {
 		}
 
 	}
-	
-//	static boolean alreadyExisits ()
-
 }

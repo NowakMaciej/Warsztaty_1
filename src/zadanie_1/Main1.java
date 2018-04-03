@@ -1,4 +1,4 @@
-package Zadanie_1;
+package zadanie_1;
 
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -8,8 +8,8 @@ public class Main1 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Random r = new Random();
-		System.out.println("Zgadnij liczbę z zakresu od 0 do 100:");
-		int guess = -1;
+		System.out.println("Zgadnij liczbę całkowitą z zakresu od 0 do 100:");
+		int guess;
 
 		boolean flag = true;
 		while (flag) {
@@ -28,7 +28,7 @@ public class Main1 {
 				sc.close();
 				break;
 			} catch (InputMismatchException ex) {
-				System.out.println("Miała być liczba. Spróbuj od nowa");
+				System.out.println("Miała być liczba całkowita. Spróbuj od nowa");
 				sc.next();
 				flag = true;				
 			}	
